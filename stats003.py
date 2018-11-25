@@ -40,10 +40,7 @@ def collect_stats(files):
     for filename in files:
         full_stats[filename] = create_stats(filename)
     return full_stats
-
-# files = ['proper_marcXML_example.xml','phil1.xml']
-# binary marc? ---  for r in pymarc.MARCReader(file(filename)): ---
-    
+  
 def main():
     files = [filename for filename in sys.argv[1:]]
     stats = collect_stats(files)
