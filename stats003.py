@@ -14,10 +14,8 @@ import time
 # Return the MARC records as an array
 def get_records(marc_file):
     if marc_file.lower().endswith(('.xml')):
-        print ('xml')
         records = pymarc.parse_xml_to_array(marc_file)
     elif marc_file.lower().endswith(('.mrc')):
-        print ('mrc')
         records = pymarc.MARCReader(open(marc_file, "rb"))    
     return records
 
@@ -44,17 +42,16 @@ def collect_stats(files):
 def main():
     files = [filename for filename in sys.argv[1:]]
     stats = collect_stats(files)
-    #print (stats)
     report_file_name = "report" + time.strftime("%Y%m%d-%H%M%S") + '.txt'
     for file in stats:
         rec_count = stats[file]['rec_count']
         stats[file].pop('rec_count', None)
         f = open(report_file_name, "a")
         f.write("\nStats for file: {0} (includes {1} records)\n\n".format(file,rec_count))
-        print ("\nStats for file: {0} (includes {1} records)\n\n".format(file,rec_count))
+        # print ("\nStats for file: {0} (includes {1} records)\n\n".format(file,rec_count))
         for value in (stats[file]):
             f.write("Field No. {0} : {1} results, ({2:.2f}) %\n".format(value, stats[file][value], percentage_of(stats[file][value], rec_count)))
-            print ("Field No. {0} : {1} results, ({2:.2f} %)".format(value, stats[file][value], percentage_of(stats[file][value], rec_count)))
+            # print ("Field No. {0} : {1} results, ({2:.2f} %)".format(value, stats[file][value], percentage_of(stats[file][value], rec_count)))
     print ('the report is saved in file: {0}'.format(report_file_name))
 
 main()
