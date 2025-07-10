@@ -25,3 +25,5 @@ python stats003.py records.mrc another.xml
 
 A report file will be created in the current directory summarizing the field counts
 for each supplied file.
+## An adaptation to a script originally designed by Ed Summers.
+
